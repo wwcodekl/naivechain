@@ -8,7 +8,7 @@ var http_port = process.env.HTTP_PORT || 3001;
 var p2p_port = process.env.P2P_PORT || 6001;
 var initialPeers = process.env.PEERS ? process.env.PEERS.split(',') : [];
 
-//#1: block structure
+//#1: Block structure
 
 var sockets = [];
 var MessageType = {
@@ -19,10 +19,7 @@ var MessageType = {
 
 //#4: Storing the blocks
 
-var blockchain = [getGenesisBlock()];
-
 //#7: Controlling the node
-
 
 var initP2PServer = () => {
     var server = new WebSocket.Server({port: p2p_port});
@@ -64,7 +61,6 @@ var initErrorHandler = (ws) => {
     ws.on('close', () => closeConnection(ws));
     ws.on('error', () => closeConnection(ws));
 };
-
 
 //#3: Generating a block
 
@@ -115,7 +111,7 @@ var handleBlockchainResponse = (message) => {
     }
 };
 
-//#6: 6. Choosing the longest chain
+//#6: Choosing the longest chain
 
 var isValidChain = (blockchainToValidate) => {
     if (JSON.stringify(blockchainToValidate[0]) !== JSON.stringify(getGenesisBlock())) {
